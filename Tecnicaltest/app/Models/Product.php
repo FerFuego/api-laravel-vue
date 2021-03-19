@@ -24,7 +24,7 @@ class Product extends Model
         return $this->belongsToMany(Category::class, 'products_categories');
     }
 
-    public function purchases() {
-        return $this->belongsToMany(Purchase::class, 'products_rates');
+    public function rates() {
+        return $this->HasMany(Rate::class);
     }
 }

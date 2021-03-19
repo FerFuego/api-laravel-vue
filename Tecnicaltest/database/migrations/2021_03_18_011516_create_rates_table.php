@@ -15,10 +15,13 @@ class CreateRatesTable extends Migration
     {
         Schema::create('rates', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('product_id')->unsigned();
             $table->string('start_date');
             $table->string('end_date');
             $table->string('price');
             $table->timestamps();
+
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
     }
 
