@@ -1,120 +1,117 @@
 <template>
-     <div>
-        <div class="col-sm-12 mt-4 mb-4">
-            <h3 class="page-header">Productos</h3>
-            <a href="#" class="btn btn-primary float-right btn-sm mb-3" data-toggle="modal" data-target="#createProduct">Nuevo Producto</a>
-        </div>
-        <div class="col-sm-12">
-            <table class="table table-hover table-striped table-responsive">
-                <thead>
-                    <tr>
-                        <td>ID</td>
-                        <td>Imagen</td>
-                        <td>Codigo</td>
-                        <td>Nombre</td>
-                        <td></td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="product in products" :key="product.id">
-                        <td>{{ product.id }}</td>
-                        <td>
-                            <img :src="getImage(product)" width="50px">
-                        </td>
-                        <td>{{ product.code }}</td>
-                        <td>{{ product.name }}</td>
-                        <td class="d-flex">
-                            <a href="#" class="btn btn-info text-white btn-sm mr-1" v-on:click.prevent="editProduct(product)" title="Editar">Editar</a>
-                            <a href="#" class="btn btn-danger btn-sm" v-on:click.prevent="deleteProduct(product)" title="Eliminar">Borrar</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="modal fade" id="updateProduct">
-                <form v-on:submit.prevent="updateProduct(fields.id)">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h3>Editar Producto</h3>
-                                <button type="button" class="close" data-dismiss="modal">
-                                    <span>&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="form-group d-flex">
-                                    <div>
-                                        <label for="code">Imagen</label>
-                                        <input type="file" name="photo" class="form-control">
-                                        <span v-if="errors && errors.photo" class="text-danger"> @{{ errors.photo[0] }}</span>
-                                    </div>
-                                    <div class="ml-2">
-                                        <img :src="getImage(fields)" width="100px">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="code">Codigo</label>
-                                    <input type="text" name="code" class="form-control" v-model="fields.code">
-                                    <span v-if="errors && errors.code" class="text-danger"> @{{ errors.code[0] }}</span>
-                                </div>
-                                <div class="form-group">
-                                    <label for="code">Nombre</label>
-                                    <input type="text" name="name" class="form-control" v-model="fields.name">
-                                    <span v-if="errors && errors.name" class="text-danger"> @{{ errors.name[0] }}</span>
-                                </div>
-                                <div class="form-group">
-                                    <label for="code">Descripcion</label>
-                                    <input type="text" name="description" class="form-control" v-model="fields.description">
-                                    <span v-if="errors && errors.description" class="text-danger"> @{{ errors.description[0] }}</span>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <input type="submit" class="btn btn-primary" value="Actualizar">
-                            </div>
+    <div class="col-sm-12">
+        <a href="#" class="btn btn-primary float-right btn-sm mb-3" data-toggle="modal" data-target="#createProduct">Nuevo Producto</a>
+        <table class="table table-hover table-striped table-sm">
+            <thead class="thead-dark">
+                <tr>
+                    <td>ID</td>
+                    <td>Imagen</td>
+                    <td>Codigo</td>
+                    <td>Nombre</td>
+                    <td>description</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="product in products" :key="product.id">
+                    <td>{{ product.id }}</td>
+                    <td>
+                        <img :src="getImage(product)" width="50px">
+                    </td>
+                    <td>{{ product.code }}</td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.description }}</td>
+                    <td class="d-flex">
+                        <a href="#" class="btn btn-info text-white btn-sm mr-1" v-on:click.prevent="editProduct(product)" title="Editar">Editar</a>
+                        <a href="#" class="btn btn-danger btn-sm" v-on:click.prevent="deleteProduct(product)" title="Eliminar">Borrar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="modal fade" id="updateProduct">
+            <form v-on:submit.prevent="updateProduct(fields.id)">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>Editar Producto</h3>
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span>&times;</span>
+                            </button>
                         </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal fade" id="createProduct">
-                <form v-on:submit.prevent="createProduct">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h3>Crear Producto</h3>
-                                <button type="button" class="close" data-dismiss="modal">
-                                    <span>&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <label for="code">Codigo</label>
-                                    <input type="text" name="code" class="form-control" v-model="fields.code">
-                                    <span v-if="errors && errors.code" class="text-danger"> @{{ errors.code[0] }}</span>
-                                </div>
-                                <div class="form-group">
-                                    <label for="code">Nombre</label>
-                                    <input type="text" name="name" class="form-control" v-model="fields.name">
-                                    <span v-if="errors && errors.name" class="text-danger"> @{{ errors.name[0] }}</span>
-                                </div>
-                                <div class="form-group">
-                                    <label for="code">Descripcion</label>
-                                    <input type="text" name="description" class="form-control" v-model="fields.description">
-                                    <span v-if="errors && errors.description" class="text-danger"> @{{ errors.description[0] }}</span>
-                                </div>
-                                <div class="form-group">
+                        <div class="modal-body">
+                            <div class="form-group d-flex">
+                                <div>
                                     <label for="code">Imagen</label>
-                                    <input type="text" name="photo" class="form-control" v-model="fields.photo">
+                                    <input type="file" name="photo" class="form-control">
                                     <span v-if="errors && errors.photo" class="text-danger"> @{{ errors.photo[0] }}</span>
                                 </div>
+                                <div class="ml-2">
+                                    <img :src="getImage(fields)" width="100px">
+                                </div>
                             </div>
-                            <div class="modal-footer">
-                                <input type="submit" class="btn btn-primary" value="Guardar">
+                            <div class="form-group">
+                                <label for="code">Codigo</label>
+                                <input type="text" name="code" class="form-control" v-model="fields.code">
+                                <span v-if="errors && errors.code" class="text-danger"> @{{ errors.code[0] }}</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="code">Nombre</label>
+                                <input type="text" name="name" class="form-control" v-model="fields.name">
+                                <span v-if="errors && errors.name" class="text-danger"> @{{ errors.name[0] }}</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="code">Descripcion</label>
+                                <input type="text" name="description" class="form-control" v-model="fields.description">
+                                <span v-if="errors && errors.description" class="text-danger"> @{{ errors.description[0] }}</span>
                             </div>
                         </div>
+                        <div class="modal-footer">
+                            <input type="submit" class="btn btn-primary" value="Actualizar">
+                        </div>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
-    </div> 
+        <div class="modal fade" id="createProduct">
+            <form v-on:submit.prevent="createProduct">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>Crear Producto</h3>
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span>&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="code">Codigo</label>
+                                <input type="text" name="code" class="form-control" v-model="fields.code">
+                                <span v-if="errors && errors.code" class="text-danger"> @{{ errors.code[0] }}</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="code">Nombre</label>
+                                <input type="text" name="name" class="form-control" v-model="fields.name">
+                                <span v-if="errors && errors.name" class="text-danger"> @{{ errors.name[0] }}</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="code">Descripcion</label>
+                                <input type="text" name="description" class="form-control" v-model="fields.description">
+                                <span v-if="errors && errors.description" class="text-danger"> @{{ errors.description[0] }}</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="code">Imagen</label>
+                                <input type="text" name="photo" class="form-control" v-model="fields.photo">
+                                <span v-if="errors && errors.photo" class="text-danger"> @{{ errors.photo[0] }}</span>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <input type="submit" class="btn btn-primary" value="Guardar">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -127,9 +124,9 @@
         },
         data() {
             return {
-                products: [],
-                fields: [],
-                errors: []
+                products: {},
+                fields: {},
+                errors: {}
             }
         },
         methods: {
@@ -140,7 +137,7 @@
                 });
             },
             getImage: function (product) {
-                return '/storage/images/' + product.photo;
+                return '/storage/' + product.photo;
             },
             createProduct: function () {
                 var urlProduct = 'products';

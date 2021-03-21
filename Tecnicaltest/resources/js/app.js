@@ -9,7 +9,7 @@ window.toastr = require('toastr')
 Vue.use(VueToastr2)
 Vue.component('App', require('./components/AppComponent.vue').default)
 Vue.component('products', require('./components/ProductsComponent.vue').default)
-/* Vue.component('catogories', require('./components/CategoriesComponent.vue').default) */
+Vue.component('categories', require('./components/CategoriesComponent.vue').default)
 
 
 const app = new Vue({

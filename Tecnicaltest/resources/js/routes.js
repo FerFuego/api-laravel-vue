@@ -1,29 +1,31 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+import Home from './views/Home.vue'
+import Products from './views/Products.vue'
+import Categories from './views/Categories.vue'
+import Compras from './views/Compras.vue'
+
 Vue.use(Router)
 
 export default new Router({
     routes: [
         {
-            path: '/',
-            name: 'home',
-            component: require('./views/Home.vue')
+            path: '/home',
+            component: Home
         },
         {
             path: '/products',
-            name: 'products',
-            component: require('./views/Products')
+            component: Products
         },
         {
             path: '/categories',
-            name: 'categories',
-            component: require('./views/Categories')
+            component: Categories
         },
         {
-            path: '*',
-            component: require('./views/404')
+            path: '/compras',
+            component: Compras
         }
     ],
-    mode: 'history' // evita # en url
+    mode: 'history'
 })

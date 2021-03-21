@@ -6,25 +6,24 @@
             </div>
             <div class="list-group list-group-flush">
                 <div class="list-group-item list-group-item-action bg-light">
-                    <router-link :to="{name:'home'}">Dashboard</router-link> 
+                    <router-link to="/home">Dashboard</router-link> 
                 </div>
                 <div class="list-group-item list-group-item-action bg-light">
-                    <router-link :to="{name:'products'}">Productos</router-link> 
+                    <router-link to="/products">Productos</router-link> 
                 </div>
                 <div class="list-group-item list-group-item-action bg-light">
-                    <router-link :to="{name:'categories'}">Categorias</router-link> 
+                    <router-link to="/categories">Categorias</router-link> 
+                </div>
+                <div class="list-group-item list-group-item-action bg-light">
+                    <router-link to="/compras">Compras</router-link> 
                 </div>
             </div>
         </div>
 
         <div class="p-0">
-            
-            <products></products>
-
-            <!-- <transition name="slide-fade" mode="out-in"> -->
-                <!-- <router-view></router-view> -->
-            <!-- </transition> -->
-        
+            <transition name="slide-fade" mode="out-in">
+                <router-view></router-view>
+            </transition>
         </div>
     </div>
 </template>
