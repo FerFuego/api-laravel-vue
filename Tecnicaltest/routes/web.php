@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,5 +13,14 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::view('/', 'auth.login');
+     
+Auth::routes();
 
-Route::view('/', 'app');
+Route::middleware('auth')->group( function () {
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::resource('products', ProductController::class, ['except' => 'show', 'create', 'edit']);
+    Route::resource('categories', CategoryController::class);
+});
+
+return Response::make('Forbidden', 403);
