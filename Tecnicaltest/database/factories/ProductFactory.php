@@ -25,7 +25,7 @@ class ProductFactory extends Factory
             'code' => Str::random(5),
             'name' => $this->faker->word,
             'description' => $this->faker->sentence,
-            'photo' => $this->faker->image('public/storage/images', 400, 300, null, false),
+            'photo' => $this->faker->image('public/storage', 400, 300, null, false),
         ];
     }
 }

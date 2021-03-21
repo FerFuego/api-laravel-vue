@@ -7,10 +7,12 @@
 ## INSTALLATION
 
 - 0 clone this repo in your local
-- 1 run > composer install
-- 2 run > npm install
+- 1 run:> composer install
+- 2 run:> npm install
 - 3 create db and config .env
-- 4 run > php artisan make:auth
-- 5 run > php artisan storage:link
-- 6 run > php artisan migrate:db seed
-- 7 run > php artisan passport:install
+- 4 run:> php artisan storage:link
+- 5 run:> php artisan migrate --seed
+- 6 run:> php artisan passport:install
+- 7 run:> php artisan key:generate
+- 8 run:> php artisan serve
+- 9 run:> npm run dev
