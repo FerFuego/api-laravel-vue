@@ -6,14 +6,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <script>window.laravel = { csrfToken: '{{ csrf_token() }}' }</script>
-        <title>Laravel + VUE</title>
-        <!-- Fonts -->
-        <link src="{{ asset('css/app.css') }}">
+        <title>Estudio Genesis</title>
+        <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     </head>
     <body>
-       <div id="app">
-           <example-component></example-component>
-       </div>
+        <div id="app">
+            <App></App>
+        </div>
        {{-- Vue --}}
        <script src="{{ asset('js/app.js') }}"></script>
     </body>
