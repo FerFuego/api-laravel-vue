@@ -16,3 +16,20 @@
 - 7 run:> php artisan key:generate
 - 8 run:> php artisan serve
 - 9 run:> npm run dev
+
+
+## API REST
+
+<p>Recursos</p>
+- POST api/login Para hacer el login y obtener su token de acceso;
+- POST api/register Para crear un nuevo usuario en la aplicación;
+
+<p>PRODUCTOS</p>
+
+- GET api/products
+- GET api/products/{date}
+
+<p>CATEGORIAS</p>
+
+- GET api/categories
+- GET api/categories/{id}
