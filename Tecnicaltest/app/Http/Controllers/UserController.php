@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
+use App\Models\User;
 use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
-use App\Http\Requests\ProductRequest;
+use App\Http\Requests\UserRequest;
+use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
-class ProductController extends Controller implements FromCollection
+class UserController extends Controller implements FromCollection
 {
     /**
      * Display a listing of the resource.
@@ -17,75 +18,67 @@ class ProductController extends Controller implements FromCollection
      */
     public function index()
     {
-        return Product::orderBy('id', 'DESC')->with('categories')->get();
+        return User::orderBy('id', 'DESC')->get();
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\ProductRequest  $request
+     * @param  \Illuminate\Http\UserRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductRequest $request)
+    public function store(UserRequest $request)
     {
         $params = $request->all();
 
         if ( $request->file ) {
             $fileName = time() . '_' . $request->file->getClientOriginalName();
-            $params['photo'] = $fileName;
+            $params['avatar'] = $fileName;
             $request->file->move( public_path('storage'), $fileName );
         }
 
-        $product = Product::create($params);
+        $params['password'] = Hash::make($request->password);
 
-        $categories = explode(',', $request->categories );
+        $user = User::create($params);
 
-        foreach ( $categories as $category ) {
-            $product->categories()->attach( $category );
-        }
-
-        return $product;
+        return $user;
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\ProductRequest  $request
-     * @param  \App\Models\Product  $product
+     * @param  \Illuminate\Http\UserRequest  $request
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(ProductRequest $request, Product $product)
+    public function update(UserRequest $request, User $user)
     {
         $params = $request->all();
         
         if ( $request->file ) {
             $fileName = time() . '_' . $request->file->getClientOriginalName();
-            $params['photo'] = $fileName;
+            $params['avatar'] = $fileName;
             $request->file->move( public_path('storage'), $fileName );
         }
 
-        $categories = explode(',', $request->categories );
-
-        $product->categories()->detach();
-
-        foreach ( $categories as $key => $category ) {
-            $product->categories()->attach( $category );
+        if ( $request->password ) {
+            $params['password'] = Hash::make($request->password);
         }
 
-        $product->fill($params)->update();
+        $user->fill($params)->update();
 
-        return $product;
+        return $user;
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Product  $product
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy(User $user)
     {
-        $product->delete();
+        $user->delete();
     }
 
     /**
@@ -93,6 +86,6 @@ class ProductController extends Controller implements FromCollection
     */
     public function collection()
     {
-        return Product::all();
+        return User::all();
     }
 }
