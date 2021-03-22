@@ -38,17 +38,17 @@
                             <div class="form-group">
                                 <label for="code">Codigo</label>
                                 <input type="text" name="code" class="form-control" v-model="fields.code">
-                                <span v-if="errors && errors.code" class="text-danger"> @{{ errors.code[0] }}</span>
+                                <span v-if="errors && errors.code" class="text-danger"> {{ errors.code[0] }}</span>
                             </div>
                             <div class="form-group">
                                 <label for="code">Nombre</label>
                                 <input type="text" name="name" class="form-control" v-model="fields.name">
-                                <span v-if="errors && errors.name" class="text-danger"> @{{ errors.name[0] }}</span>
+                                <span v-if="errors && errors.name" class="text-danger"> {{ errors.name[0] }}</span>
                             </div>
                             <div class="form-group">
                                 <label for="code">Descripcion</label>
                                 <input type="text" name="description" class="form-control" v-model="fields.description">
-                                <span v-if="errors && errors.description" class="text-danger"> @{{ errors.description[0] }}</span>
+                                <span v-if="errors && errors.description" class="text-danger"> {{ errors.description[0] }}</span>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -72,17 +72,17 @@
                             <div class="form-group">
                                 <label for="code">Codigo</label>
                                 <input type="text" name="code" class="form-control" v-model="fields.code">
-                                <span v-if="errors && errors.code" class="text-danger"> @{{ errors.code[0] }}</span>
+                                <span v-if="errors && errors.code" class="text-danger"> {{ errors.code[0] }}</span>
                             </div>
                             <div class="form-group">
                                 <label for="code">Nombre</label>
                                 <input type="text" name="name" class="form-control" v-model="fields.name">
-                                <span v-if="errors && errors.name" class="text-danger"> @{{ errors.name[0] }}</span>
+                                <span v-if="errors && errors.name" class="text-danger"> {{ errors.name[0] }}</span>
                             </div>
                             <div class="form-group">
                                 <label for="code">Descripcion</label>
                                 <input type="text" name="description" class="form-control" v-model="fields.description">
-                                <span v-if="errors && errors.description" class="text-danger"> @{{ errors.description[0] }}</span>
+                                <span v-if="errors && errors.description" class="text-danger"> {{ errors.description[0] }}</span>
                             </div>
                         </div>
                         <div class="modal-footer">

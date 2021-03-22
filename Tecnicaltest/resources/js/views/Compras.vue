@@ -1,3 +1,7 @@
 <template>
-    <div><h2>Compras</h2></div>
+    <div>
+        <div class="col-sm-12 mt-4 mb-4">
+            <h3 class="page-header">Compras</h3>
+        </div>
+    </div>
 </template>

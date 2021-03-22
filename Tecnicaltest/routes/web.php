@@ -20,7 +20,7 @@ Auth::routes();
 Route::middleware('auth')->group( function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::resource('products', ProductController::class, ['except' => 'show', 'create', 'edit']);
-    Route::resource('categories', CategoryController::class);
+    Route::resource('categories', CategoryController::class, ['except' => 'show', 'create', 'edit']);
 });
 
 return Response::make('Forbidden', 403);

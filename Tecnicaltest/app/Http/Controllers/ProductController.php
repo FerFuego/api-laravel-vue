@@ -15,7 +15,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return Product::orderBy('id', 'DESC')->get();
+        return Product::orderBy('id', 'DESC')->with('categories')->get();
     }
 
     /**
@@ -26,7 +26,23 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        return Product::create($request->all());
+        $params = $request->all();
+
+        if ( $request->file ) {
+            $fileName = time() . '_' . $request->file->getClientOriginalName();
+            $params['file'] = $fileName;
+            $request->file->move( public_path('uploads'), $fileName );
+        }
+
+        $product = Product::create($params);
+
+        $categories = explode(',', $request->categories );
+
+        foreach ( $categories as $category ) {
+            $product->categories()->attach( $category );
+        }
+
+        return $product;
     }
 
     /**
@@ -36,9 +52,27 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(ProductRequest $request, Product $product)
+    public function update(Request $request, Product $product)
     {
-        return $product->fill($request->all())->update();
+        $params = $request->all();
+        
+        if ( $request->file ) {
+            $fileName = time() . '_' . $request->file->getClientOriginalName();
+            $params['file'] = $fileName;
+            $request->file->move( public_path('uploads'), $fileName );
+        }
+
+        $product->fill($params)->update();
+
+        $categories = explode(',', $request->categories );
+
+        $product->categories()->detach();
+
+        foreach ( $categories as $category ) {
+            $product->categories()->attach( $category );
+        }
+
+        return $product;
     }
 
     /**

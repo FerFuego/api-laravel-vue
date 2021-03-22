@@ -1,5 +1,7 @@
 <template>
     <div>
-        <h3>Home</h3>
+        <div class="col-sm-12 mt-4 mb-4">
+            <h3 class="page-header">Home</h3>
+        </div>
     </div>
 </template>
