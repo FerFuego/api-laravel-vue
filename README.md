@@ -21,6 +21,7 @@
 ## API REST
 
 <p>Recursos</p>
+
 - POST api/login Para hacer el login y obtener su token de acceso;
 - POST api/register Para crear un nuevo usuario en la aplicación;
 
