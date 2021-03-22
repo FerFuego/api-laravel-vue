@@ -15,7 +15,7 @@
                     <router-link to="/categories">Categorias</router-link> 
                 </div>
                 <div class="list-group-item list-group-item-action bg-light">
-                    <router-link to="/compras">Compras</router-link> 
+                    <router-link to="/users">Usuarios</router-link> 
                 </div>
             </div>
         </div>

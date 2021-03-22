@@ -8,6 +8,7 @@ import 'vue-toastr-2/dist/vue-toastr-2.min.css'
 window.toastr = require('toastr')
 Vue.use(VueToastr2)
 Vue.component('App', require('./components/AppComponent.vue').default)
+Vue.component('users', require('./components/UsersComponent.vue').default)
 Vue.component('products', require('./components/ProductsComponent.vue').default)
 Vue.component('categories', require('./components/CategoriesComponent.vue').default)
 

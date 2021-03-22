@@ -1,5 +1,6 @@
 <template>
     <div class="col-sm-12">
+        <a href="/excel/products" class="btn btn-success btn-sm mb-3">Exportar Productos</a>
         <a href="#" class="btn btn-primary float-right btn-sm mb-3" data-toggle="modal" data-target="#createProduct">Nuevo Producto</a>
         <table class="table table-hover table-striped table-sm">
             <thead class="thead-dark">
@@ -159,7 +160,7 @@
                     'name'  : null,
                     'photo' : null,
                     'description' : null,
-                    'categories'  : null,
+                    'categories'  : [],
                     'selected'    : null
                 },
                 errors: {}
@@ -216,6 +217,7 @@
                     'code'  : product.code,
                     'name'  : product.name,
                     'photo' : product.photo,
+                    'categories'  : product.categories,
                     'description' : product.description,
                     'selected'    : product.categories,
                 };

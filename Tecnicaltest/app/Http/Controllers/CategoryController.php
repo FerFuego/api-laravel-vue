@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Requests\CategoryRequest;
+use Maatwebsite\Excel\Concerns\FromCollection;
 
-class CategoryController extends Controller
+class CategoryController extends Controller implements FromCollection
 {
     /**
      * Display a listing of the resource.
@@ -50,5 +51,13 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
+    }
+
+    /**
+    * @return \Illuminate\Support\Collection
+    */
+    public function collection()
+    {
+        return Category::all();
     }
 }

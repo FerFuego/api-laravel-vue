@@ -1,5 +1,6 @@
 <template>
     <div class="col-sm-12">
+        <a href="/excel/categories" class="btn btn-success btn-sm mb-3">Exportar Categorias</a>
         <a href="#" class="btn btn-primary float-right btn-sm mb-3" data-toggle="modal" data-target="#createCategory">Nueva Categoria</a>
         <table class="table table-hover table-striped table-sm">
             <thead class="thead-dark">

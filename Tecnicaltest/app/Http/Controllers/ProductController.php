@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequest;
+use Maatwebsite\Excel\Concerns\FromCollection;
 
-class ProductController extends Controller
+class ProductController extends Controller implements FromCollection
 {
     /**
      * Display a listing of the resource.
@@ -30,8 +32,8 @@ class ProductController extends Controller
 
         if ( $request->file ) {
             $fileName = time() . '_' . $request->file->getClientOriginalName();
-            $params['file'] = $fileName;
-            $request->file->move( public_path('uploads'), $fileName );
+            $params['photo'] = $fileName;
+            $request->file->move( public_path('storage'), $fileName );
         }
 
         $product = Product::create($params);
@@ -52,25 +54,25 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductRequest $request, Product $product)
     {
         $params = $request->all();
         
         if ( $request->file ) {
             $fileName = time() . '_' . $request->file->getClientOriginalName();
-            $params['file'] = $fileName;
-            $request->file->move( public_path('uploads'), $fileName );
+            $params['photo'] = $fileName;
+            $request->file->move( public_path('storage'), $fileName );
         }
-
-        $product->fill($params)->update();
 
         $categories = explode(',', $request->categories );
 
         $product->categories()->detach();
 
-        foreach ( $categories as $category ) {
+        foreach ( $categories as $key => $category ) {
             $product->categories()->attach( $category );
         }
+
+        $product->fill($params)->update();
 
         return $product;
     }
@@ -84,5 +86,13 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
+    }
+
+    /**
+    * @return \Illuminate\Support\Collection
+    */
+    public function collection()
+    {
+        return Product::all();
     }
 }
